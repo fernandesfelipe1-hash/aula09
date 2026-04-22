@@ -21,7 +21,13 @@ class FilmeController extends Controller
 
     public function store(Request $request)
     {
+        $valid = $request->validate([    
+            'titulo' => 'required|max:96',
+            'genero' => 'required|max:32',
+        ]);
+
         Filme::create($request->all());
+        // Filme::create($request->all());
 
         return redirect()
             ->route('filmes.index')
