@@ -23,7 +23,7 @@ class FilmeController extends Controller
     {
         $valid = $request->validate([    
             'titulo' => 'required|max:96',
-            'genero' => 'required|max:32',
+            'genero' => 'required|max:32|in:comedia',
         ]);
 
         Filme::create($request->all());

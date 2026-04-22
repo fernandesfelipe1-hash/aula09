@@ -2,7 +2,7 @@
 
 <div class="form-group">
   <label for="titulo">Título</label>
-  <input type="text" 
+  <input  type="text" 
           name="titulo" 
           id="titulo" 
           maxlength="96" 
@@ -16,7 +16,12 @@
 <div class="form-row">
   <div class="form-group col-md-4">
     <label for="genero">Gênero</label>
-    <input type="text" name="genero" id="genero" maxlength="32" class="form-control @error('genero') is-invalid @enderror" value="{{ old('genero', data_get($filme ?? null, 'genero', '')) }}">
+    <input  type="text" 
+            name="genero" 
+            id="genero" 
+            maxlength="32" 
+            class="form-control @error('genero') is-invalid @enderror" 
+            value="{{ old('genero') }}">
     @error('genero')
       <div class="invalid-feedback">{{ $message }}</div>
     @enderror
