@@ -21,13 +21,20 @@ class FilmeController extends Controller
 
     public function store(Request $request)
     {
+        $date = (int) date('Y');
+        
         $valid = $request->validate([    
             'titulo' => 'required|max:96',
             'genero' => 'required|max:32|in:comedia',
+            'diretor' => 'regex:/^\D+$/',
+            'ano_lancamento' => "required|integer|min:1888|max:{$date}",
+            'duracao_minutos' => 'required|min:10|max:600',
+            'assistido' => 'boolean',
+            'sinopse' => 'max:150',
         ]);
 
         Filme::create($request->all());
-        // Filme::create($request->all());
+        // Filme::create($request->all());;
 
         return redirect()
             ->route('filmes.index')
