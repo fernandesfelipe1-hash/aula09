@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Filme;
+use Illuminate\Support\Facades\Log;
 
 class FilmeController extends Controller
 {
@@ -21,6 +22,7 @@ class FilmeController extends Controller
 
     public function store(Request $request)
     {
+        Log::error('deu erro');
         $date = (int) date('Y');
         
         $valid = $request->validate([    
@@ -33,7 +35,7 @@ class FilmeController extends Controller
             'sinopse' => 'max:150',
         ]);
 
-        Filme::create($request->all());
+        Filme::create($valid);
         // Filme::create($request->all());;
 
         return redirect()
