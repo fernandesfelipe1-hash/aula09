@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FilmeRequest;
 use Illuminate\Http\Request;
 use App\Models\Filme;
 use Illuminate\Support\Facades\Log;
@@ -20,20 +21,11 @@ class FilmeController extends Controller
         return view('filmes.create');
     }
 
-    public function store(Request $request)
+    public function store(FilmeRequest $request)
     {
         Log::error('deu erro');
-        $date = (int) date('Y');
         
-        $valid = $request->validate([    
-            'titulo' => 'required|max:96',
-            'genero' => 'required|max:32|in:comedia',
-            'diretor' => 'regex:/^\D+$/',
-            'ano_lancamento' => "required|integer|min:1888|max:{$date}",
-            'duracao_minutos' => 'required|min:10|max:600',
-            'assistido' => 'boolean',
-            'sinopse' => 'max:150',
-        ]);
+        $valid = $request->validated();
 
         Filme::create($valid);
         // Filme::create($request->all());;
@@ -53,9 +45,10 @@ class FilmeController extends Controller
         return view('filmes.edit', compact('filme'));
     }
 
-    public function update(Request $request, Filme $filme)
+    public function update(FilmeRequest $request, Filme $filme)
     {
-        $filme->update($request->all());
+        $valid = $request->validated();
+        $filme->update($valid);
 
         return redirect()
             ->route('filmes.index')
